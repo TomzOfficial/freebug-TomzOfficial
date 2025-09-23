@@ -3,126 +3,110 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MAS CODX</title>
+  <title>Setting Panel</title>
   <style>
     body {
-      font-family: "Courier New", monospace;
       margin: 0;
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-
-      /* ganti link foto disini */
-      background: url("https://files.catbox.moe/6h2jpw.jpg") no-repeat center center fixed;
-      background-size: cover;
-      position: relative;
-    }
-
-    /* overlay biar teks & box tetap jelas */
-    body::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(255, 255, 255, 0.6); 
-      z-index: -1;
-    }
-
-    .header-btn {
-      position: absolute;
-      top: 15px;
-      right: 15px;
-      background: #2ecc71;
-      border: 2px solid #000;
-      padding: 8px 14px;
-      font-weight: bold;
-      border-radius: 6px;
-      box-shadow: 3px 3px 0px #000;
-    }
-    .container {
-      background: #fff;
-      border: 2px solid #000;
-      border-radius: 10px;
-      box-shadow: 6px 6px 0px #000;
-      padding: 20px;
-      max-width: 350px;
-      width: 90%;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
+      color: #fff;
       text-align: center;
     }
-    .label {
+    header {
+      padding: 15px;
+      background: #111;
+      font-size: 22px;
       font-weight: bold;
-      margin: 10px 0 5px;
+      color: #0ff;
+      text-shadow: 0 0 10px #0ff;
+    }
+    .container {
+      margin: 30px auto;
+      background: #111;
+      padding: 20px;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 450px;
+      box-shadow: 0 0 10px #0ff;
       text-align: left;
     }
-    .input-box {
+    label {
+      display: block;
+      margin: 15px 0 5px;
+      font-size: 14px;
+      color: #0ff;
+    }
+    input {
       width: 100%;
       padding: 10px;
-      border: 2px solid #000;
-      border-radius: 8px;
-      margin-bottom: 15px;
-      box-shadow: 3px 3px 0px #000;
-      font-family: inherit;
+      border-radius: 6px;
+      border: none;
       font-size: 14px;
+      outline: none;
+      background: #222;
+      color: #fff;
     }
-    .btn {
+    button {
+      margin-top: 20px;
       width: 100%;
       padding: 12px;
-      margin-top: 10px;
-      background: #ffa726;
-      border: 2px solid #000;
       border-radius: 8px;
+      border: none;
+      background: #0ff;
+      color: #000;
       font-weight: bold;
-      font-size: 15px;
       cursor: pointer;
-      box-shadow: 3px 3px 0px #000;
+      transition: 0.3s;
+      font-size: 16px;
     }
-    .btn:active {
-      transform: translate(2px, 2px);
-      box-shadow: 1px 1px 0px #000;
+    button:hover {
+      background: #00cccc;
     }
-    .footer {
+    .status {
       margin-top: 20px;
       font-size: 14px;
-    }
-    .footer span {
-      color: red;
-    }
-    .footer b {
-      color: blue;
+      color: #aaa;
     }
   </style>
 </head>
 <body>
-  <button class="header-btn">MAS CODX</button>
+  <header>⚙️ Setting Panel</header>
 
   <div class="container">
-    <div class="label">LINK NEBAR</div>
-    <input type="text" id="linkNebar" class="input-box" value="https://a6a.viral62.my.id/x/2fh">
+    <label for="token">🔑 Bot Token</label>
+    <input type="text" id="token" placeholder="Masukkan BOT_TOKEN">
 
-    <div class="label">LINK SETTING</div>
-    <input type="text" id="linkSetting" class="input-box" value="http://localhost:8158/__unsaved_file__">
+    <label for="chatid">💬 Chat ID</label>
+    <input type="text" id="chatid" placeholder="Masukkan CHAT_ID">
 
-    <button class="btn" onclick="bukaNebar()">Buka</button>
-    <button class="btn" onclick="bukaSetting()">Setting</button>
-  </div>
+    <label for="webname">🌐 Nama Web</label>
+    <input type="text" id="webname" placeholder="Masukkan Nama Panel">
 
-  <div class="footer">
-    Dibuat oleh <b>NICO</b> dengan <span>❤</span>
+    <button onclick="saveSetting()">💾 Simpan Setting</button>
+    <div class="status" id="status">Belum ada setting tersimpan.</div>
   </div>
 
   <script>
-    function bukaNebar() {
-      const url = document.getElementById('linkNebar').value;
-      window.open(url, "_blank");
-    }
-    function bukaSetting() {
-      const url = document.getElementById('linkSetting').value;
-      window.open(url, "_blank");
+    // Load data lama
+    document.getElementById("token").value   = localStorage.getItem("BOT_TOKEN") || "";
+    document.getElementById("chatid").value  = localStorage.getItem("CHAT_ID") || "";
+    document.getElementById("webname").value = localStorage.getItem("webName") || "";
+
+    function saveSetting() {
+      const token = document.getElementById("token").value.trim();
+      const chatid = document.getElementById("chatid").value.trim();
+      const webname = document.getElementById("webname").value.trim();
+
+      if (!token || !chatid || !webname) {
+        document.getElementById("status").innerText = "⚠️ Semua field wajib diisi.";
+        return;
+      }
+
+      localStorage.setItem("BOT_TOKEN", token);
+      localStorage.setItem("CHAT_ID", chatid);
+      localStorage.setItem("webName", webname);
+
+      document.getElementById("status").innerText = "✅ Setting berhasil disimpan!";
     }
   </script>
 </body>
